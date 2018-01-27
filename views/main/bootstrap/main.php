@@ -29,3 +29,6 @@ if ($is_open) {
     echo '</div>';
     $is_open = false;
 }
+
+
+print_r($view);
