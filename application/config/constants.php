@@ -98,6 +98,7 @@ defined('PASSWORD_BCRYPT') OR define('PASSWORD_BCRYPT', 1);
 
 defined('ADMIN_SKIN') OR define('ADMIN_SKIN', 'basic');
 
+defined('MANAGER_SKIN') OR define('MANAGER_SKIN', 'basic');
 
 /*
  *	CiBoard 주 : 현재 지역 timezone 설정입니다.

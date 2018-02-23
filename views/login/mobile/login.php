@@ -5,9 +5,7 @@
         <div class="table-heading">로그인</div>
         <div class="table-body">
             <?php
-            echo validation_errors('<div class="alert alert-warning" role="alert">', '</div>');
-            echo show_alert_message(element('message', $view), '<div class="alert alert-auto-close alert-dismissible alert-info"><button type="button" class="close alertclose" >&times;</button>', '</div>');
-            echo show_alert_message($this->session->flashdata('message'), '<div class="alert alert-auto-close alert-dismissible alert-info"><button type="button" class="close alertclose" >&times;</button>', '</div>');
+            
             $attributes = array('class' => 'form-horizontal', 'name' => 'flogin', 'id' => 'flogin');
             echo form_open(current_full_url(), $attributes);
             ?>
@@ -21,6 +19,9 @@
                         <span>비밀번호</span>
                         <input type="password" class="input" name="mem_password" />
                     </li>
+                    <?php echo validation_errors('<div class="alert alert-warning" role="alert">', '</div>');
+            echo show_alert_message(element('message', $view), '<div class="alert alert-auto-close alert-dismissible alert-info"><button type="button" class="close alertclose" >&times;</button>', '</div>');
+            echo show_alert_message($this->session->flashdata('message'), '<div class="alert alert-auto-close alert-dismissible alert-info"><button type="button" class="close alertclose" >&times;</button>', '</div>'); ?>
                     <li>
                         <span></span>
                         <button type="submit" class="btn btn-primary btn-sm">로그인</button>
@@ -62,7 +63,7 @@
             <?php } ?>
         </div>
         <div class="table-footer">
-            <a href="<?php echo site_url('register'); ?>" class="btn btn-success btn-sm" title="회원가입">회원가입</a>
+            <!-- <a href="<?php echo site_url('register'); ?>" class="btn btn-success btn-sm" title="회원가입">회원가입</a> -->
             <a href="<?php echo site_url('findaccount'); ?>" class="btn btn-default btn-sm" title="아이디 패스워드 찾기">아이디 패스워드 찾기</a>
         </div>
     </div>

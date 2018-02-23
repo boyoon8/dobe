@@ -56,146 +56,56 @@ var cookie_prefix = "<?php echo config_item('cookie_prefix'); ?>";
 <body <?php echo isset($view) ? element('body_script', $view) : ''; ?>>
 <div class="wrapper">
 
-    <?php if ($this->cbconfig->get_device_view_type() !== 'mobile') {?>
-        <!-- header start -->
-        <header class="header">
-            <div class="container">
-                <ul class="header-top-menu">
-                    <?php if ($this->member->is_admin() === 'super') { ?>
-                        <li><i class="fa fa-cog"></i><a href="<?php echo site_url(config_item('uri_segment_admin')); ?>" title="관리자 페이지로 이동">관리자</a></li>
-                    <?php } ?>
-                    <?php
-                    if ($this->member->is_member()) {
-                        if ($this->cbconfig->item('use_notification')) {
-                    ?>
-                        <li class="notifications"><i class="fa fa-bell-o"></i>알림 <span class="badge notification_num"><?php echo number_format(element('notification_num', $layout) + 0); ?></span>
-                            <div class="notifications-menu"> </div>
-                        </li>
-                        <script type="text/javascript">
-                        //<![CDATA[
-                        $(document).mouseup(function (e)
-                        {
-                            var noticontainer = $('.notifications-menu');
-
-                            if ( ! noticontainer.is(e.target) // if the target of the click isn't the container...
-                                && noticontainer.has(e.target).length === 0) // ... nor a descendant of the container
-                            {
-                                noticontainer.hide();
-                            }
-                        });
-                        //]]>
-                        </script>
-                    <?php
-                        }
-                    ?>
-                        <li><i class="fa fa-sign-out"></i><a href="<?php echo site_url('login/logout?url=' . urlencode(current_full_url())); ?>" title="로그아웃">로그아웃</a></li>
-                        <li><i class="fa fa-user"></i><a href="<?php echo site_url('mypage'); ?>" title="마이페이지">마이페이지</a></li>
-                    <?php } else { ?>
-                        <li><i class="fa fa-sign-in"></i><a href="<?php echo site_url('login?url=' . urlencode(current_full_url())); ?>" title="로그인">로그인</a></li>
-                        <li><i class="fa fa-user"></i><a href="<?php echo site_url('register'); ?>" title="회원가입">회원가입</a></li>
-                    <?php } ?>
-                    <?php if ($this->cbconfig->item('open_currentvisitor')) { ?>
-                        <li><i class="fa fa-link"></i><a href="<?php echo site_url('currentvisitor'); ?>" title="현재접속자">현재접속자</a> <span class="badge"><?php echo element('current_visitor_num', $layout); ?></span></li>
-                    <?php } ?>
-                </ul>
-            </div>
-        <!-- header-content end -->
-        </header>
-
-<?php } else {?>
-
-    <div class="header_line"></div>
-
-<?php } ?>
-
-    <!-- nav start -->
-    <nav class="navbar navbar-default">
+   <header class="header">
         <div class="container">
-
-            <!-- Brand and toggle get grouped for better mobile display -->
+            
+            <?php
+            if ($this->member->is_member()) {
+            ?>
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" <?php if ($this->cbconfig->get_device_view_type() !== 'mobile') {?>data-toggle="collapse" data-target="#topmenu-navbar-collapse" <?php } ?> id="btn_side">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a href="<?php echo site_url(); ?>" class="navbar-brand" title="<?php echo html_escape($this->cbconfig->item('site_title'));?>"><?php echo $this->cbconfig->item('site_logo'); ?></a>
+                <a href="<?php echo site_url(); ?>" class="" title="<?php echo html_escape($this->cbconfig->item('site_title'));?>">홈 </a>
+                <a href="<?php echo site_url(); ?>" class="" title="<?php echo html_escape($this->cbconfig->item('site_title'));?>">영업자료</a>
+                <a href="<?php echo site_url(); ?>" class="" title="<?php echo html_escape($this->cbconfig->item('site_title'));?>">알림</a>
             </div>
-
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="topmenu-navbar-collapse">
-                <ul class="nav navbar-nav navbar-right">
-                    <?php
-                    $menuhtml = '';
-                    if (element('menu', $layout)) {
-                        $menu = element('menu', $layout);
-                        if (element(0, $menu)) {
-                            foreach (element(0, $menu) as $mkey => $mval) {
-                                if (element(element('men_id', $mval), $menu)) {
-                                    $mlink = element('men_link', $mval) ? element('men_link', $mval) : 'javascript:;';
-                                    $menuhtml .= '<li class="dropdown">
-                                    <a href="' . $mlink . '" ' . element('men_custom', $mval);
-                                    if (element('men_target', $mval)) {
-                                        $menuhtml .= ' target="' . element('men_target', $mval) . '"';
-                                    }
-                                    $menuhtml .= ' title="' . html_escape(element('men_name', $mval)) . '">' . html_escape(element('men_name', $mval)) . '</a>
-                                    <ul class="dropdown-menu">';
-
-                                    foreach (element(element('men_id', $mval), $menu) as $skey => $sval) {
-                                        $slink = element('men_link', $sval) ? element('men_link', $sval) : 'javascript:;';
-                                        $menuhtml .= '<li><a href="' . $slink . '" ' . element('men_custom', $sval);
-                                        if (element('men_target', $sval)) {
-                                            $menuhtml .= ' target="' . element('men_target', $sval) . '"';
-                                        }
-                                        $menuhtml .= ' title="' . html_escape(element('men_name', $sval)) . '">' . html_escape(element('men_name', $sval)) . '</a></li>';
-                                    }
-                                    $menuhtml .= '</ul></li>';
-
-                                } else {
-                                    $mlink = element('men_link', $mval) ? element('men_link', $mval) : 'javascript:;';
-                                    $menuhtml .= '<li><a href="' . $mlink . '" ' . element('men_custom', $mval);
-                                    if (element('men_target', $mval)) {
-                                        $menuhtml .= ' target="' . element('men_target', $mval) . '"';
-                                    }
-                                    $menuhtml .= ' title="' . html_escape(element('men_name', $mval)) . '">' . html_escape(element('men_name', $mval)) . '</a></li>';
-                                }
-                            }
+            <ul class="header-top-menu">
+                <li>
+                    <form class="navbar-form navbar-right" name="header_search" id="header_search" action="<?php echo site_url('search'); ?>" onSubmit="return headerSearch(this);">
+                        <div class="form-group">
+                            고객번호 :
+                            <input type="text" class="form-control px150" placeholder="고객명" name="skeyword" accesskey="s" />
+                            <button class="btn btn-primary btn-sm" type="submit">담당자 정보</button>
+                            <button class="btn btn-primary btn-sm" type="submit">사업자 정보</button>
+                            <button class="btn btn-primary btn-sm" type="submit">배송지 주소록</button>
+                            <button class="btn btn-primary btn-sm" type="submit">신규 고객</button>
+                        </div>
+                    </form>
+                    <script type="text/javascript">
+                    //<![CDATA[
+                    
+                    function headerSearch(f) {
+                        var skeyword = f.skeyword.value.replace(/(^\s*)|(\s*$)/g,'');
+                        if (skeyword.length < 2) {
+                            alert('2글자 이상으로 검색해 주세요');
+                            f.skeyword.focus();
+                            return false;
                         }
+                        return true;
                     }
-                    echo $menuhtml;
-                    ?>
-                    <li>
-                        <form class="navbar-form navbar-right" name="header_search" id="header_search" action="<?php echo site_url('search'); ?>" onSubmit="return headerSearch(this);">
-                            <div class="form-group">
-                                <input type="text" class="form-control px150" placeholder="Search" name="skeyword" accesskey="s" />
-                                <button class="btn btn-primary btn-sm" type="submit"><i class="fa fa-search"></i></button>
-                            </div>
-                        </form>
-                        <script type="text/javascript">
-                        //<![CDATA[
-                        $(function() {
-                            $('#topmenu-navbar-collapse .dropdown').hover(function() {
-                                $(this).addClass('open');
-                            }, function() {
-                                $(this).removeClass('open');
-                            });
-                        });
-                        function headerSearch(f) {
-                            var skeyword = f.skeyword.value.replace(/(^\s*)|(\s*$)/g,'');
-                            if (skeyword.length < 2) {
-                                alert('2글자 이상으로 검색해 주세요');
-                                f.skeyword.focus();
-                                return false;
-                            }
-                            return true;
-                        }
-                        //]]>
-                        </script>
-                    </li>
-                </ul>
-            </div><!-- /.navbar-collapse -->
+                    //]]>
+                    </script>
+                </li>
+               
+                <li><a href="<?php echo site_url('login/logout?url=' . urlencode(current_full_url())); ?>" title="로그아웃" style="padding:0px;font-weight: 300;"><i class="fa fa-sign-out"></i>로그아웃</a><br>
+                <a href="<?php echo site_url('mypage'); ?>" title="마이페이지" style="padding:0px;font-weight: 300;"><i class="fa fa-user"></i><?php echo $this->member->item('mem_nickname') ?></a></li>
+                
+                
+            </ul>
+            <?php } ?>
         </div>
-    </nav>
+    <!-- header-content end -->
+    </header>
+
+    
     <!-- nav end --> <!-- header end -->
 
     <!-- main start -->
@@ -204,7 +114,7 @@ var cookie_prefix = "<?php echo config_item('cookie_prefix'); ?>";
             <div class="row">
 
                 <?php if (element('use_sidebar', $layout)) {?>
-                    <div class="col-md-9 col-sm-8 col-xs-12 mb20">
+                    <div class="col-md-10 col-sm-10 col-xs-12 mb20 pull-right">
                 <?php } ?>
 
                 <!-- 본문 시작 -->
@@ -213,7 +123,7 @@ var cookie_prefix = "<?php echo config_item('cookie_prefix'); ?>";
 
                 <?php if (element('use_sidebar', $layout)) {?>
                     </div>
-                    <div class="col-md-3 col-sm-4 col-xs-12">
+                    <div class="col-md-2 col-sm-2 col-xs-12 pull-right">
                         <div class="sidebar">
                             <!-- 사이드바 시작 -->
                             <?php $this->load->view(element('layout_skin_path', $layout) . '/sidebar'); ?>
@@ -228,52 +138,71 @@ var cookie_prefix = "<?php echo config_item('cookie_prefix'); ?>";
 
     <!-- footer start -->
     <footer>
-        <div class="container">
-            <div>
-                <ul class="company">
-                    <li><a href="<?php echo document_url('aboutus'); ?>" title="회사소개">회사소개</a></li>
-                    <li><a href="<?php echo document_url('provision'); ?>" title="이용약관">이용약관</a></li>
-                    <li><a href="<?php echo document_url('privacy'); ?>" title="개인정보 취급방침">개인정보 취급방침</a></li>
-                    <li><a href="<?php echo site_url('pointranking'); ?>" title="포인트 전체랭킹">포인트 전체랭킹</a></li>
-                    <li><a href="<?php echo site_url('pointranking/month'); ?>" title="포인트 월별랭킹">포인트 월별랭킹</a></li>
-                    <li><a href="<?php echo site_url('levelup'); ?>" title="레벨업">레벨업</a></li>
-                </ul>
-            </div>
-            <div class="copyright">
-                <?php if ($this->cbconfig->item('company_address')) { ?>
-                    <span><?php echo $this->cbconfig->item('company_address'); ?>
-                        <?php if ($this->cbconfig->item('company_zipcode')) { ?>(우편 <?php echo $this->cbconfig->item('company_zipcode'); ?>)<?php } ?>
-                    </span>
+        <nav class="navbar navbar-default " style="margin:0px">
+            <div class="container pt5">
+
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" <?php if ($this->cbconfig->get_device_view_type() !== 'mobile') {?>data-toggle="collapse" data-target="#topmenu-navbar-collapse" <?php } ?> id="btn_side">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                
+                <?php
+                if ($this->member->is_member()) {
+                ?>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse " id="topmenu-navbar-collapse">
+                    <ul class="nav  navbar-right">
+                       
+                        <?php
+                        $menuhtml = '';
+                        if (element('menu', $layout)) {
+                            $menu = element('menu', $layout);
+                            if (element(0, $menu)) {
+                                foreach (element(0, $menu) as $mkey => $mval) {
+                                    if (element(element('men_id', $mval), $menu)) {
+                                        $mlink = element('men_link', $mval) ? element('men_link', $mval) : 'javascript:;';
+                                        $menuhtml .= '<li class="dropdown pull-right">
+                                        <a href="' . $mlink . '" ' . element('men_custom', $mval);
+                                        if (element('men_target', $mval)) {
+                                            $menuhtml .= ' target="' . element('men_target', $mval) . '"';
+                                        }
+                                        $menuhtml .= ' title="' . html_escape(element('men_name', $mval)) . '">' . html_escape(element('men_name', $mval)) . '</a>
+                                        <ul class="dropdown-menu">';
+
+                                        foreach (element(element('men_id', $mval), $menu) as $skey => $sval) {
+                                            $slink = element('men_link', $sval) ? element('men_link', $sval) : 'javascript:;';
+                                            $menuhtml .= '<li><a href="' . $slink . '" ' . element('men_custom', $sval);
+                                            if (element('men_target', $sval)) {
+                                                $menuhtml .= ' target="' . element('men_target', $sval) . '"';
+                                            }
+                                            $menuhtml .= ' title="' . html_escape(element('men_name', $sval)) . '">' . html_escape(element('men_name', $sval)) . '</a></li>';
+                                        }
+                                        $menuhtml .= '</ul></li>';
+
+                                    } else {
+                                        $mlink = element('men_link', $mval) ? element('men_link', $mval) : 'javascript:;';
+                                        $menuhtml .= '<li class="ml30 pull-left"><a href="' . $mlink . '" ' . element('men_custom', $mval);
+                                        if (element('men_target', $mval)) {
+                                            $menuhtml .= ' target="' . element('men_target', $mval) . '"';
+                                        }
+                                        $menuhtml .= ' title="' . html_escape(element('men_name', $mval)) . '">' . html_escape(element('men_name', $mval)) . '</a></li>';
+                                    }
+                                }
+                            }
+                        }
+                        echo $menuhtml;
+                        ?>
+                      
+                    </ul>
+
+                </div><!-- /.navbar-collapse -->
                 <?php } ?>
-                <?php if ($this->cbconfig->item('company_owner')) { ?><span><b>대표</b> <?php echo $this->cbconfig->item('company_owner'); ?></span><?php } ?>
-                <?php if ($this->cbconfig->item('company_phone')) { ?><span><b>전화</b> <?php echo $this->cbconfig->item('company_phone'); ?></span><?php } ?>
-                <?php if ($this->cbconfig->item('company_fax')) { ?><span><b>팩스</b> <?php echo $this->cbconfig->item('company_fax'); ?></span><?php } ?>
             </div>
-            <div class="copyright">
-                <?php if ($this->cbconfig->item('company_reg_no')) { ?><span><b>사업자</b> <?php echo $this->cbconfig->item('company_reg_no'); ?></span><?php } ?>
-                <?php if ($this->cbconfig->item('company_retail_sale_no')) { ?><span><b>통신판매</b> <?php echo $this->cbconfig->item('company_retail_sale_no'); ?></span><?php } ?>
-                <?php if ($this->cbconfig->item('company_added_sale_no')) { ?><span><b>부가통신</b> <?php echo $this->cbconfig->item('company_added_sale_no'); ?></span><?php } ?>
-                <?php if ($this->cbconfig->item('company_admin_name')) { ?><span><b>정보관리책임자명</b> <?php echo $this->cbconfig->item('company_admin_name'); ?></span><?php } ?>
-                <span>Copyright&copy; <?php echo $this->cbconfig->item('site_title'); ?>. All Rights Reserved.</span>
-            </div>
-            <?php
-            if ($this->cbconfig->get_device_view_type() === 'mobile') {
-            ?>
-                <div class="see_mobile"><a href="<?php echo current_full_url(); ?>" class="btn btn-primary btn-xs viewpcversion">PC 버전으로 보기</a></div>
-            <?php
-            } else {
-                if ($this->cbconfig->get_device_type() === 'mobile') {
-            ?>
-                <div class="see_mobile"><a href="<?php echo current_full_url(); ?>" class="btn btn-primary btn-lg viewmobileversion" style="width:100%;font-size:5em;">모바일 버전으로 보기</a></div>
-            <?php
-                } else {
-            ?>
-                <div class="see_mobile"><a href="<?php echo current_full_url(); ?>" class="btn btn-primary btn-xs viewmobileversion">모바일 버전으로 보기</a></div>
-            <?php
-                }
-            }
-            ?>
-        </div>
+        </nav>
     </footer>
     <!-- footer end -->
 </div>
@@ -361,6 +290,103 @@ var cookie_prefix = "<?php echo config_item('cookie_prefix'); ?>";
 
 <?php } ?>
 
+
+  <!-- Modal -->
+  <div class="modal fade col-sm-5" tabindex=-1 id="myModal" role="dialog" >
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Modal Header</h4>
+        </div>
+        <div class="modal-body">
+          129312
+          300123
+          12312<br>
+          3001233<br>
+          123123<br>
+          1231233<br>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+    <div class="modal fade col-sm-5" id="myModal2" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Modal Header</h4>
+        </div>
+        <div class="modal-body">
+          
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+    <div class="modal fade col-sm-5" id="myModal3" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Modal Header</h4>
+        </div>
+        <div class="modal-body">
+          
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+    <div class="modal fade col-sm-5" id="myModal4" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Modal Header</h4>
+        </div>
+        <div class="modal-body">
+          
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+
+<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" data-backdrop="false" data-keyboard="true">
+  Launch demo modal
+</button>
+
+<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal2" data-backdrop="false" data-keyboard="true">
+  Launch demo modal
+</button>
+
 <script type="text/javascript">
 $(document).on('click', '.viewpcversion', function(){
     Cookies.set('device_view_type', 'desktop', { expires: 1 });
@@ -368,6 +394,30 @@ $(document).on('click', '.viewpcversion', function(){
 $(document).on('click', '.viewmobileversion', function(){
     Cookies.set('device_view_type', 'mobile', { expires: 1 });
 });
+
+
+$(document).ready(function(){
+    $("#myModal").draggable({handle: ".modal-header"});
+    $("#myModal2").draggable({handle: ".modal-header"});
+    $("#myModal3").draggable({handle: ".modal-header"});
+    $("#myModal4").draggable({handle: ".modal-header"});
+});
+
+
+$('#myModal').on('show.bs.modal', function () {
+        
+       
+
+        setTimeout(function(){
+
+        $('#myModal').css('height',$('#myModal').find('.modal-body').height()+220);
+        
+        }, 500);
+});
+
+
+  
+
 </script>
 <?php echo element('popup', $layout); ?>
 <?php echo $this->cbconfig->item('footer_script'); ?>

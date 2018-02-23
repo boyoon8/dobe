@@ -50,15 +50,47 @@ var cookie_prefix = "<?php echo config_item('cookie_prefix'); ?>";
 <div class="wrapper">
     <!-- header start -->
 
-    <div class="header_line"></div>
+    
     <!-- nav start -->
-    <nav class="navbar">
+    <nav class="navbar navbar-fixed-top">
+        <div class="header_line"></div>
         <div class="container">
+            <div class="l_nav pull-left" >
+                <a href="javascript:;" id="btn_left_side"><img src="<?php echo element('layout_skin_url', $layout); ?>/images/m_menu.jpg" alt="menu" title="menu" /></a>
+            </div>
             <div class="logo pull-left">
                 <a href="<?php echo site_url(); ?>" title="<?php echo html_escape($this->cbconfig->item('site_title'));?>"><?php echo $this->cbconfig->item('site_logo'); ?></a>
             </div>
+           
             <div class="m_nav pull-right" >
                 <a href="javascript:;" id="btn_side"><img src="<?php echo element('layout_skin_url', $layout); ?>/images/m_menu.jpg" alt="menu" title="menu" /></a>
+            </div>
+             <div class="m_nav pull-right">
+                
+                <?php
+                if ($this->member->is_member()) {
+                    if (!$this->cbconfig->item('use_notification')) {
+                ?>
+                    <i class="fa fa-bell-o"></i>알림 <span class="badge notification_num"><?php echo number_format(element('notification_num', $layout) + 0); ?></span>
+                        <div class="notifications-menu"> </div>
+                    
+                    <script type="text/javascript">
+                    //<![CDATA[
+                    $(document).mouseup(function (e)
+                    {
+                        var noticontainer = $('.notifications-menu');
+
+                        if ( ! noticontainer.is(e.target) // if the target of the click isn't the container...
+                            && noticontainer.has(e.target).length === 0) // ... nor a descendant of the container
+                        {
+                            noticontainer.hide();
+                        }
+                    });
+                    //]]>
+                    </script>
+                <?php
+                    }
+                } ?>
             </div>
         </div>
     </nav>
@@ -67,7 +99,7 @@ var cookie_prefix = "<?php echo config_item('cookie_prefix'); ?>";
 
     <!-- main start -->
     <div class="main">
-        <div class="container">
+        <div class="container pt50">
 
                 <!-- 본문 시작 -->
                 <?php if (isset($yield))echo $yield; ?>
@@ -81,12 +113,12 @@ var cookie_prefix = "<?php echo config_item('cookie_prefix'); ?>";
     <footer>
         <div class="container">
             <ul class="company pull-left">
-            <li><a href="<?php echo document_url('aboutus'); ?>" title="회사소개">회사소개</a></li>
+            <!-- <li><a href="<?php echo document_url('aboutus'); ?>" title="회사소개">회사소개</a></li>
             <li><a href="<?php echo document_url('provision'); ?>" title="이용약관">이용약관</a></li>
             <li><a href="<?php echo document_url('privacy'); ?>" title="개인정보 취급방침">개인정보 취급방침</a></li>
             <li><a href="<?php echo site_url('pointranking'); ?>" title="포인트 전체랭킹">포인트 전체랭킹</a></li>
             <li><a href="<?php echo site_url('pointranking/month'); ?>" title="포인트 월별랭킹">포인트 월별랭킹</a></li>
-            <li><a href="<?php echo site_url('levelup'); ?>" title="레벨업">레벨업</a></li>
+            <li><a href="<?php echo site_url('levelup'); ?>" title="레벨업">레벨업</a></li> -->
             </ul>
             <div class="see_mobile"><a href="<?php echo current_full_url(); ?>" class="btn btn-primary btn-xs viewpcversion">PC 버전으로 보기</a></div>
         </div>
@@ -98,18 +130,18 @@ var cookie_prefix = "<?php echo config_item('cookie_prefix'); ?>";
     <div class="side_wr add_side_wr">
         <div id="isroll_wrap" class="side_inner_rel">
             <div class="side_inner_abs">
-                <div class="m_search">
+                <!-- <div class="m_search">
                     <form name="mobile_header_search" id="mobile_header_search" action="<?php echo site_url('search'); ?>" onSubmit="return headerSearch(this);">
                         <input type="text" placeholder="Search" class="input" name="skeyword" accesskey="s" />
                     </form>
-                </div>
+                </div> -->
                 <div class="m_login">
                     <?php if ($this->member->is_member()) { ?>
                         <span><a href="<?php echo site_url('login/logout?url=' . urlencode(current_full_url())); ?>" class="btn btn-primary" title="로그아웃"><i class="fa fa-sign-out"></i> 로그아웃</a></span>
                         <span><a href="<?php echo site_url('mypage'); ?>" class="btn btn-primary" title="로그아웃"><i class="fa fa-user"></i> 마이페이지</a></span>
                     <?php } else { ?>
                         <span><a href="<?php echo site_url('login?url=' . urlencode(current_full_url())); ?>" class="btn btn-primary" title="로그인"><i class="fa fa-sign-in"></i> 로그인</a></span>
-                        <span><a href="<?php echo site_url('register'); ?>" class="btn btn-primary" title="회원가입"><i class="fa fa-user"></i> 회원가입</a></span>
+                        <!-- <span><a href="<?php echo site_url('register'); ?>" class="btn btn-primary" title="회원가입"><i class="fa fa-user"></i> 회원가입</a></span> -->
                     <?php } ?>
                 </div>
                 <ul class="m_board">
@@ -163,6 +195,77 @@ var cookie_prefix = "<?php echo config_item('cookie_prefix'); ?>";
                             }
                         }
                     }
+                    echo $menuhtml;
+                    ?>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="menu" id="left_side_menu">
+    <div class="left_side_wr add_left_side_wr">
+        <div id="left_isroll_wrap" class="left_side_inner_rel">
+            <div class="left_side_inner_abs">
+                <!-- <div class="m_search">
+                    <form name="mobile_header_search" id="mobile_header_search" action="<?php echo site_url('search'); ?>" onSubmit="return headerSearch(this);">
+                        <input type="text" placeholder="Search" class="input" name="skeyword" accesskey="s" />
+                    </form>
+                </div> -->
+                <div class="m_login">
+                    <?php if ($this->member->is_member()) { ?>
+                        <span><a href="<?php echo site_url('login/logout?url=' . urlencode(current_full_url())); ?>" class="btn btn-primary" title="로그아웃"><i class="fa fa-sign-out"></i> 로그아웃</a></span>
+                        <span><a href="<?php echo site_url('mypage'); ?>" class="btn btn-primary" title="로그아웃"><i class="fa fa-user"></i> 마이페이지</a></span>
+                    <?php } else { ?>
+                        <span><a href="<?php echo site_url('login?url=' . urlencode(current_full_url())); ?>" class="btn btn-primary" title="로그인"><i class="fa fa-sign-in"></i> 로그인</a></span>
+                        <!-- <span><a href="<?php echo site_url('register'); ?>" class="btn btn-primary" title="회원가입"><i class="fa fa-user"></i> 회원가입</a></span> -->
+                    <?php } ?>
+                </div>
+                <ul class="m_menu">
+                    <?php
+                    $left_menu=array(
+                        array('men_id' => 0,
+                        'men_name' => '공지 사항',
+                        'men_link' => 'http://boyoon.dbnatural.com/group/g-a',
+                        'men_target' =>'',
+                        // 'men_custom' => 'class="btn btn-info btn-sm"'
+                        ),
+                        array('men_id' => 1,
+                        'men_name' => '입고 일정',
+                        'men_link' => 'http://boyoon.dbnatural.com/group/g-a',
+                        'men_target' =>'',
+                        // 'men_custom' => 'class="btn btn-info btn-sm"'
+                        ),
+                        array('men_id' => 2,
+                        'men_name' => '일정',
+                        'men_link' => 'http://boyoon.dbnatural.com/group/g-a',
+                        'men_target' =>'',
+                        // 'men_custom' => 'class="btn btn-info btn-sm"'
+                        ),
+                        array('men_id' => 3,
+                        'men_name' => '할일',
+                        'men_link' => 'http://boyoon.dbnatural.com/group/g-a',
+                        'men_target' =>'',
+                        // 'men_custom' => 'class="btn btn-info btn-sm"'
+                        ),
+                        
+                    );
+
+                    $menuhtml = '';
+                        if ($left_menu) {
+                            foreach ($left_menu as $mkey => $mval) {
+                                
+                                    $mlink = element('men_link', $mval) ? element('men_link', $mval) : 'javascript:;';
+                                    $menuhtml .= '<li><a href="' . $mlink . '" ' . element('men_custom', $mval);
+                                    if (element('men_target', $mval)) {
+                                        $menuhtml .= ' target="' . element('men_target', $mval) . '"';
+                                    }
+                                    $menuhtml .= ' title="' . html_escape(element('men_name', $mval)) . '">' . html_escape(element('men_name', $mval)) . '</a></li>';
+                                
+                            }
+                        }
+                    
                     echo $menuhtml;
                     ?>
                 </ul>

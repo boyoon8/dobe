@@ -5,9 +5,7 @@
         <div class="panel-heading">로그인</div>
         <div class="panel-body">
             <?php
-            echo validation_errors('<div class="alert alert-warning" role="alert">', '</div>');
-            echo show_alert_message(element('message', $view), '<div class="alert alert-auto-close alert-dismissible alert-info"><button type="button" class="close alertclose" >&times;</button>', '</div>');
-            echo show_alert_message($this->session->flashdata('message'), '<div class="alert alert-auto-close alert-dismissible alert-info"><button type="button" class="close alertclose" >&times;</button>', '</div>');
+            
             $attributes = array('class' => 'form-horizontal', 'name' => 'flogin', 'id' => 'flogin');
             echo form_open(current_full_url(), $attributes);
             ?>
@@ -24,6 +22,12 @@
                         <input type="password" class="form-control" name="mem_password" />
                     </div>
                 </div>
+                <?php 
+                echo validation_errors('<div class="alert alert-warning" role="alert">', '</div>');
+                echo show_alert_message(element('message', $view), '<div class="alert alert-auto-close alert-dismissible alert-info"><button type="button" class="close alertclose" >&times;</button>', '</div>');
+                echo show_alert_message($this->session->flashdata('message'), '<div class="alert alert-auto-close alert-dismissible alert-info"><button type="button" class="close alertclose" >&times;</button>', '</div>');
+
+                 ?>
                 <div class="form-group">
                     <div class="col-sm-2 col-sm-offset-3">
                         <button type="submit" class="btn btn-primary btn-sm">로그인</button>
@@ -66,7 +70,7 @@
         </div>
         <div class="panel-footer">
             <div class="pull-right">
-                <a href="<?php echo site_url('register'); ?>" class="btn btn-success btn-sm" title="회원가입">회원가입</a>
+                <!-- <a href="<?php echo site_url('register'); ?>" class="btn btn-success btn-sm" title="회원가입">회원가입</a> -->
                 <a href="<?php echo site_url('findaccount'); ?>" class="btn btn-default btn-sm" title="아이디 패스워드 찾기">아이디 패스워드 찾기</a>
             </div>
         </div>
@@ -78,8 +82,8 @@
 $(function() {
     $('#flogin').validate({
         rules: {
-            mem_userid : { required:true, minlength:3 },
-            mem_password : { required:true, minlength:4 }
+            mem_userid : { required:true},
+            mem_password : { required:true}
         }
     });
 });

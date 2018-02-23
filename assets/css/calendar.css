@@ -1,0 +1,32 @@
+table.main-calendar{
+border: 10px solid #25BAE4;
+border-collapse:collapse;
+text-align: center;
+}
+table.main-calendar td{
+
+height: 20px;
+
+border: 1px solid #e2e0e0;
+}
+table.main-calendar th{
+text-align: center;
+padding-bottom: 8px;
+background:#25BAE4;
+font-size: 13px;
+}
+table.main-calendar .prev_sign a,table.main-calendar .next_sign a{
+color:white;
+text-decoration: none;
+}
+table.main-calendar tr.week_name{
+
+font-weight:400;
+color:red;
+width: 10px;
+background-color: #efe8e8;
+}
+table.main-calendar .highlight{
+background-color:#25BAE4;
+color:white;
+}

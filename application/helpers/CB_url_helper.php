@@ -52,6 +52,17 @@ if ( ! function_exists('admin_url')) {
     }
 }
 
+/**
+ * Manager 페이지 주소를 return 합니다
+ */
+if ( ! function_exists('manager_url')) {
+    function manager_url($url = '')
+    {
+        $url = trim($url, '/');
+        return site_url(config_item('uri_segment_manager') . '/' . $url);
+    }
+}
+
 
 /**
  * 게시판 목록 주소를 return 합니다

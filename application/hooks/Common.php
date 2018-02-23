@@ -155,6 +155,12 @@ class _Common
             redirect('login?url=' . urlencode(current_full_url()));
         }
 
+        // 일반 페이지
+        if (!$CI->member->is_member()
+            && ($CI->uri->segment(1) === 'main' || $CI->uri->segment(1) === 'board' || $CI->uri->segment(1) === 'group' || $CI->uri->segment(1) === 'search' || empty($CI->uri->segment(1)))) {
+            redirect('login?url=' . urlencode(current_full_url()));
+        }
+
         if (config_item('use_lock_ip')
             && $CI->uri->segment(1) === config_item('uri_segment_admin')
             && $CI->cbconfig->item('admin_ip_whitelist')) {

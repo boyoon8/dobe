@@ -130,6 +130,39 @@ class Layoutskin extends CB_Controller
                 'label' => '메인페이지모바일스킨',
                 'rules' => 'trim',
             ),
+
+
+            array(
+                'field' => 'layout_manager',
+                'label' => '매니져페이지레이아웃',
+                'rules' => 'trim',
+            ),
+            array(
+                'field' => 'sidebar_manager',
+                'label' => '매니져페이지사이드바',
+                'rules' => 'trim',
+            ),
+            array(
+                'field' => 'mobile_layout_manager',
+                'label' => '매니져페이지모바일레이아웃',
+                'rules' => 'trim',
+            ),
+            array(
+                'field' => 'mobile_sidebar_manager',
+                'label' => '매니져페이지모바일사이드바',
+                'rules' => 'trim',
+            ),
+            array(
+                'field' => 'skin_manager',
+                'label' => '매니져페이지일반스킨',
+                'rules' => 'trim',
+            ),
+            array(
+                'field' => 'mobile_skin_manager',
+                'label' => '매니져페이지모바일스킨',
+                'rules' => 'trim',
+            ),
+
             array(
                 'field' => 'layout_board',
                 'label' => '게시판레이아웃',
@@ -604,7 +637,8 @@ class Layoutskin extends CB_Controller
             $array = array(
                 'layout_default', 'mobile_layout_default', 'sidebar_default', 'mobile_sidebar_default',
                 'skin_default', 'mobile_skin_default', 'layout_main', 'mobile_layout_main', 'sidebar_main',
-                'mobile_sidebar_main', 'skin_main', 'mobile_skin_main', 'layout_board',
+                'mobile_sidebar_main', 'skin_main', 'mobile_skin_main', 'layout_manager', 'mobile_layout_manager', 'sidebar_manager',
+                'mobile_sidebar_manager', 'skin_manager', 'mobile_skin_manager', 'layout_board',
                 'mobile_layout_board', 'sidebar_board', 'mobile_sidebar_board', 'skin_board',
                 'mobile_skin_board', 'layout_group', 'mobile_layout_group', 'sidebar_group',
                 'mobile_sidebar_group', 'skin_group', 'mobile_skin_group', 'layout_document',
@@ -676,6 +710,34 @@ class Layoutskin extends CB_Controller
             '기본설정따름'
         );
 
+
+        $view['view']['data']['layout_manager_option'] = get_skin_name(
+            '_layout',
+            set_value('layout_manager', element('layout_manager', $getdata)),
+            '기본설정따름'
+        );
+        $view['view']['data']['mobile_layout_manager_option'] = get_skin_name(
+            '_layout',
+            set_value('mobile_layout_manager', element('mobile_layout_manager', $getdata)),
+            '기본설정따름'
+        );
+
+        $view['view']['data']['skin_manager_option'] = get_skin_name(
+            'main',
+            set_value('skin_manager', element('skin_manager', $getdata)),
+            '기본설정따름'
+        );
+
+
+
+
+        $view['view']['data']['mobile_skin_manager_option'] = get_skin_name(
+            'main',
+            set_value('mobile_skin_manager', element('mobile_skin_manager', $getdata)),
+            '기본설정따름'
+        );
+
+
         $view['view']['data']['layout_board_option'] = get_skin_name(
             '_layout',
             set_value('layout_board', element('layout_board', $getdata)),
@@ -691,6 +753,7 @@ class Layoutskin extends CB_Controller
             set_value('skin_board', element('skin_board', $getdata)),
             '기본설정따름'
         );
+
         $view['view']['data']['mobile_skin_board_option'] = get_skin_name(
             'board',
             set_value('mobile_skin_board', element('mobile_skin_board', $getdata)),
@@ -1056,6 +1119,12 @@ class Layoutskin extends CB_Controller
                 'key' => 'main',
                 'name' => '메인페이지',
                 'controllers' => array('Main/index'),
+                'description' => '',
+            ),
+             array(
+                'key' => 'manager',
+                'name' => '매니져페이지',
+                'controllers' => array('Manager/index'),
                 'description' => '',
             ),
             array(

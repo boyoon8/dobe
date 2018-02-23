@@ -32,7 +32,7 @@ class Main extends CB_Controller
         /**
          * 라이브러리를 로딩합니다
          */
-        $this->load->library(array('querystring'));
+        $this->load->library(array('querystring','javascript'));
     }
 
 
@@ -64,9 +64,71 @@ class Main extends CB_Controller
         $view['view']['board_list'] = $board_list;
         $view['view']['canonical'] = site_url();
 
+        $prefs = array (
+               // 'show_next_prev'  => TRUE,
+               'template'   => '
+                {table_open}<table cellpadding="1" cellspacing="2" class="main-calendar col-md-12">{/table_open}
+
+                {heading_row_start}<tr>{/heading_row_start}
+
+                {heading_previous_cell}<th class="prev_sign"><a href="{previous_url}">&lt;&lt;</a></th>{/heading_previous_cell}
+                {heading_title_cell}<th colspan="{colspan}">{heading}</th>{/heading_title_cell}
+                {heading_next_cell}<th class="next_sign"><a href="{next_url}">&gt;&gt;</a></th>{/heading_next_cell}
+
+                {heading_row_end}</tr>{/heading_row_end}
+
+                //Deciding where to week row start
+                {week_row_start}<tr class="week_name" >{/week_row_start}
+                //Deciding  week day cell and  week days
+                {week_day_cell}<td >{week_day}</td>{/week_day_cell}
+                //week row end
+                {week_row_end}</tr>{/week_row_end}
+
+                {cal_row_start}<tr>{/cal_row_start}
+                {cal_cell_start}<td>{/cal_cell_start}
+
+                {cal_cell_content}<a href="{content}">{day}</a>{/cal_cell_content}
+                {cal_cell_content_today}<div class="highlight"><a href="{content}">{day}</a></div>{/cal_cell_content_today}
+
+                {cal_cell_no_content}{day}{/cal_cell_no_content}
+                {cal_cell_no_content_today}<div class="highlight">{day}</div>{/cal_cell_no_content_today}
+
+                {cal_cell_blank}&nbsp;{/cal_cell_blank}
+
+                {cal_cell_end}</td>{/cal_cell_end}
+                {cal_row_end}</tr>{/cal_row_end}
+
+                {table_close}</table>{/table_close}
+                '
+             );
+
+        $this->load->library('calendar', $prefs);
+
+        $view['view']['calendar'] = $this->calendar->generate();
+
+
+        $calendarPreference = array (
+                        'start_day'    => 'saturday',
+                        'month_type'   => 'long',
+                        'day_type'     => 'long',
+                        'date'     => date(mktime(0, 0, 0, date('m'), date('d'), date('Y'))),
+                        'url' => 'week/',
+                    );        
+        $this->load->library('calendar_week', $calendarPreference);
+
+        // I need to feed my calndar week with some data
+        // for the example data are empty
+        $weeks = $this->calendar_week->get_week();
+
+        $arr_Data = Array();
+        for ($i=0;$i<count($weeks);$i++){
+            $arr_Data[$weeks[$i]] = '';
+        }
+
+        
         // 이벤트가 존재하면 실행합니다
         $view['view']['event']['before_layout'] = Events::trigger('before_layout', $eventname);
-
+        
         /**
          * 레이아웃을 정의합니다
          */

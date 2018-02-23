@@ -7,9 +7,9 @@
         <?php if ($this->cbconfig->item('use_point')) { ?>
             <li><a href="<?php echo site_url('mypage/point'); ?>" title="포인트">포인트</a></li>
         <?php } ?>
-        <li><a href="<?php echo site_url('mypage/followinglist'); ?>" title="팔로우">팔로우</a></li>
+        <!-- <li><a href="<?php echo site_url('mypage/followinglist'); ?>" title="팔로우">팔로우</a></li>
         <li><a href="<?php echo site_url('mypage/like_post'); ?>" title="내가 추천한 글">추천</a></li>
-        <li><a href="<?php echo site_url('mypage/scrap'); ?>" title="나의 스크랩">스크랩</a></li>
+        <li><a href="<?php echo site_url('mypage/scrap'); ?>" title="나의 스크랩">스크랩</a></li> -->
         <li class="active"><a href="<?php echo site_url('mypage/loginlog'); ?>" title="나의 로그인기록">로그인기록</a></li>
         <li><a href="<?php echo site_url('membermodify'); ?>" title="정보수정">정보수정</a></li>
         <li><a href="<?php echo site_url('membermodify/memberleave'); ?>" title="탈퇴하기">탈퇴하기</a></li>

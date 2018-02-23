@@ -1,41 +1,41 @@
+<link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/calendar.css'); ?>" />
+
 <!-- sidebar_latest start -->
 <div class="sidebar_latest">
     <div class="headline">
-        <h3>최근 게시물</h3>
+        <h3>그룹1</h3>
     </div>
-    <ul>
-        <?php
-        $config = array(
-            'skin' => 'basic2',
-            'brd_id' => '',
-            'limit' => 5,
-            'length' => 20,
-            'is_gallery' => '',
-            'image_width' => '',
-            'image_height' => '',
-            'cache_minute' => 1,
-        );
-        echo $this->board->latest($config);
-        ?>
+    <ul class="mt20">
+        <li><a href="javascript:;" onClick="open_profile('<?php echo $this->member->item('mem_userid'); ?>');" class="btn btn-default btn-xs" title="hotline">HOTLINE</a></li>
+        <li><a href="<?php echo site_url('mypage'); ?>" class="btn btn-default btn-xs" title="공지사항">공지사항</a></li>
+        <li><a href="<?php echo site_url('mypage/scrap'); ?>" class="btn btn-default btn-xs" title="나의 스크랩">일정</a></li>
+        <li><a href="<?php echo site_url('membermodify'); ?>" class="btn btn-default btn-xs" title="정보수정">할일</a></li>
+        <li><?php echo element('calendar',$view); ?></li>
+        
     </ul>
 </div>
-<!-- sidebar_latest end -->
-<!-- sidebar_latest start -->
 <div class="sidebar_latest">
     <div class="headline">
-        <h3>최근 댓글</h3>
+        <h3>그룹2</h3>
     </div>
-     <ul>
-        <?php
-        $config = array(
-            'skin' => 'basic2',
-            'brd_id' => '',
-            'limit' => 5,
-            'length' => 20,
-            'cache_minute' => 1,
-        );
-        echo $this->board->latest_comment($config);
-        ?>
+    <ul class="mt20">
+        <li><a href="javascript:;" onClick="open_profile('<?php echo $this->member->item('mem_userid'); ?>');" class="btn btn-default btn-xs" title="활동보고서">활동보고서</a></li>
+        <li><a href="<?php echo site_url('mypage'); ?>" class="btn btn-default btn-xs" title="신규작성">신규 작성</a></li>
+        <li><a href="<?php echo site_url('mypage/scrap'); ?>" class="btn btn-default btn-xs" title="모바일 작업">모바일 작업</a></li>
+        
+    </ul>
+</div>
+<div class="sidebar_latest">
+    <div class="headline">
+        <h3>그룹3</h3>
+    </div>
+    <ul class="mt20">
+        <li><a href="javascript:;" onClick="open_profile('<?php echo $this->member->item('mem_userid'); ?>');" class="btn btn-default btn-xs" title="클레임">클레임</a></li>
+        <li><a href="<?php echo site_url('mypage'); ?>" class="btn btn-default btn-xs" title="고객욕구사항">고객 욕구 사항</a></li>
+        <li><a href="<?php echo site_url('mypage/scrap'); ?>" class="btn btn-default btn-xs" title="견적서">견적서</a></li>
+        <li><a href="<?php echo site_url('mypage/scrap'); ?>" class="btn btn-default btn-xs" title="주문서">주문서</a></li>
+        <li><a href="<?php echo site_url('mypage/scrap'); ?>" class="btn btn-default btn-xs" title="샘플">샘플</a></li>
+        
     </ul>
 </div>
 <!-- sidebar_latest end -->

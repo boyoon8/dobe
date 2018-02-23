@@ -933,4 +933,10 @@ if (typeof(COMMON_JS) === 'undefined') {
                 element_layer.style.display = 'block';
         }
     }
+
+
+    function show_btnmodal($text, $link = "", $target = "", $size = "sm")
+    {
+        return "<label><a href=\"$link\" data-toggle=\"modal\" data-target=\"#$target\" class=\"btn btn-primary btn-$size\">$text</a></label> \n";
+    }
 }

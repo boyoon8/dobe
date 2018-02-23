@@ -63,6 +63,16 @@ if (config_item('uri_segment_admin') !== 'admin') {
     $route[config_item('uri_segment_admin') . '/(.+)'] = "admin/$1";
 }
 
+$route[config_item('uri_segment_manager') . '/preview/managershow/(.+)'] = "$1";
+
+if (config_item('uri_segment_manager') !== 'manager') {
+    $route['manager'] = '_show404notfounderrorpage';
+    $route[config_item('uri_segment_manager')] = 'manager';
+
+    $route['manager/(.+)'] = '_show404notfounderrorpage';
+    $route[config_item('uri_segment_manager') . '/(.+)'] = "manager/$1";
+}
+
 $route[config_item('uri_segment_board') . '/([a-zA-Z0-9_-]+)'] = "board_post/lists/$1";
 if (strtoupper(config_item('uri_segment_post_type')) === 'B') {
     $route['([a-zA-Z0-9_-]+)/' . config_item('uri_segment_post') . '/([0-9]+)'] = "board_post/post/$2";
