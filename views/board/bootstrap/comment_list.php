@@ -12,7 +12,7 @@ if (element('best_list', $view)) {
         <?php } ?>
         <div class="media-body">
             <h4 class="media-heading">
-                <?php if (element('is_admin', $view)) { ?><input type="checkbox" name="chk_comment_id[]" value="<?php echo element('cmt_id', $result); ?>" /><?php } ?>
+                <!-- <?php if (element('is_admin', $view)) { ?><input type="checkbox" name="chk_comment_id[]" value="<?php echo element('cmt_id', $result); ?>" /><?php } ?> -->
                 <span class="label label-warning">베플</span>
                 <?php echo element('display_name', $result); ?>
                     <span class="time"><i class="fa fa-clock-o"></i> <?php echo element('display_datetime', $result); ?></span>
@@ -33,7 +33,7 @@ if (element('best_list', $view)) {
                         <?php if (element('use_comment_blame', element('board', $view)) && ( ! element('comment_blame_blind_count', element('board', $view)) OR element('cmt_blame', $result) < element('comment_blame_blind_count', element('board', $view)))) { ?>
                             <a href="javascript:;" id="btn-blame" onClick="comment_blame('<?php echo element('cmt_id', $result); ?>', 'comment-blame-<?php echo element('cmt_id', $result); ?>');" title="신고하기"><i class="fa fa-bell fa-xs"></i><span class="comment-blame-<?php echo element('cmt_id', $result); ?>"><?php echo element('cmt_blame', $result) ? '+' . number_format(element('cmt_blame', $result)) : ''; ?></span></a>
                         <?php } ?>
-                        <?php
+                        <!-- <?php
                         if (element('is_admin', $view) && element('use_comment_secret', element('board', $view))) {
                             if (element('cmt_secret', $result)) {
                         ?>
@@ -43,7 +43,7 @@ if (element('best_list', $view)) {
                         <?php
                             }
                         }
-                        ?>
+                        ?> -->
                     </span>
                 <?php } ?>
             </h4>
@@ -65,7 +65,7 @@ if (element('list', element('data', $view))) {
         <?php } ?>
         <div class="media-body">
             <h4 class="media-heading">
-                <?php if (element('is_admin', $view)) { ?><input type="checkbox" name="chk_comment_id[]" value="<?php echo element('cmt_id', $result); ?>" /><?php } ?>
+                <!-- <?php if (element('is_admin', $view)) { ?><input type="checkbox" name="chk_comment_id[]" value="<?php echo element('cmt_id', $result); ?>" /><?php } ?> -->
                 <?php echo element('display_name', $result); ?>
                 <span class="time"><i class="fa fa-clock-o"></i> <?php echo element('display_datetime', $result); ?></span>
                 <?php if (element('display_ip', $result)) { ?>
@@ -94,7 +94,7 @@ if (element('list', element('data', $view))) {
                         <?php if (element('can_delete', $result)) { ?>
                             <a href="javascript:;" onClick="delete_comment('<?php echo element('cmt_id', $result); ?>', '<?php echo element('post_id', $result); ?>', '<?php echo element('page', $view); ?>');">삭제</a>
                         <?php } ?>
-                        <?php
+                        <!-- <?php
                         if (element('is_admin', $view) && element('use_comment_secret', element('board', $view))) {
                             if (element('cmt_secret', $result)) {
                         ?>
@@ -104,7 +104,7 @@ if (element('list', element('data', $view))) {
                         <?php
                             }
                         }
-                        ?>
+                        ?> -->
                     </span>
                 <?php
                 }

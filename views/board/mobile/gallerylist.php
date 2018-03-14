@@ -8,7 +8,7 @@
         <?php if ( ! element('access_list', element('board', element('list', $view))) && element('use_rss_feed', element('board', element('list', $view)))) { ?>
             <a href="<?php echo rss_url(element('brd_key', element('board', element('list', $view)))); ?>" class="btn btn-default btn-sm" title="<?php echo html_escape(element('board_name', element('board', element('list', $view)))); ?> RSS 보기"><i class="fa fa-rss"></i></a>
         <?php } ?>
-        <select class="input" onchange="location.href='<?php echo board_url(element('brd_key', element('board', element('list', $view)))); ?>?category_id=<?php echo html_escape($this->input->get('categroy_id')); ?>&amp;findex=' + this.value;">
+        <!-- <select class="input" onchange="location.href='<?php echo board_url(element('brd_key', element('board', element('list', $view)))); ?>?category_id=<?php echo html_escape($this->input->get('categroy_id')); ?>&amp;findex=' + this.value;">
             <option value="">정렬하기</option>
             <option value="post_datetime desc" <?php echo $this->input->get('findex') === 'post_datetime desc' ? 'selected="selected"' : '';?>>날짜순</option>
             <option value="post_hit desc" <?php echo $this->input->get('findex') === 'post_hit desc' ? 'selected="selected"' : '';?>>조회수</option>
@@ -16,7 +16,7 @@
             <?php if (element('use_post_like', element('board', element('list', $view)))) { ?>
                 <option value="post_like desc" <?php echo $this->input->get('findex') === 'post_like desc' ? 'selected="selected"' : '';?>>추천순</option>
             <?php } ?>
-        </select>
+        </select> -->
         <?php if (element('use_category', element('board', element('list', $view))) && ! element('cat_display_style', element('board', element('list', $view)))) { ?>
             <select class="input" onchange="location.href='<?php echo board_url(element('brd_key', element('board', element('list', $view)))); ?>?findex=<?php echo html_escape($this->input->get('findex')); ?>&category_id=' + this.value;">
                 <option value="">카테고리선택</option>
@@ -47,7 +47,7 @@
             </select>
         <?php } ?>
         <div class="col-md-6">
-            <div class=" searchbox">
+            <div class=" ">
                 <form class="navbar-form navbar-right pull-right" action="<?php echo board_url(element('brd_key', element('board', element('list', $view)))); ?>" onSubmit="return postSearch(this);">
                     <input type="hidden" name="findex" value="<?php echo html_escape($this->input->get('findex')); ?>" />
                     <input type="hidden" name="category_id" value="<?php echo html_escape($this->input->get('category_id')); ?>" />
@@ -64,9 +64,7 @@
                     </div>
                 </form>
             </div>
-            <div class="searchbuttonbox">
-                <button class="btn btn-primary btn-sm pull-right" type="button" onClick="toggleSearchbox();"><i class="fa fa-search"></i></button>
-            </div>
+            
             <?php if (element('point_info', element('list', $view))) { ?>
                 <div class="point-info pull-right mr10">
                     <button type="button" class="btn-link btn-point-info" ><i class="fa fa-info-circle"></i></button>
@@ -85,15 +83,7 @@
             }
             return true;
         }
-        function toggleSearchbox() {
-            $('.searchbox').show();
-            $('.searchbuttonbox').hide();
-        }
-        <?php
-        if ($this->input->get('skeyword')) {
-            echo 'toggleSearchbox();';
-        }
-        ?>
+        
         $(document).on('click', '.btn-point-info', function() {
             $('.point-info-content').toggle();
         });

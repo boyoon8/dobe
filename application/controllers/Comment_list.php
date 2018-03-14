@@ -407,6 +407,9 @@ class Comment_list extends CB_Controller
         if (empty($skindir)) {
             $skindir = 'basic';
         }
+
+        
+
         $skin = 'board/' . $skindir . '/comment_list';
 
         $this->data = $view;

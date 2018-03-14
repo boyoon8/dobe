@@ -259,7 +259,7 @@ if (element('syntax_highlighter', element('board', $view)) OR element('comment_s
             <button type="button" class="btn btn-black btn-sm" id="btn-blame" onClick="post_blame('<?php echo element('post_id', element('post', $view)); ?>', 'post-blame');">신고 <span class="post-blame"><?php echo element('post_blame', element('post', $view)) ? '+' . number_format(element('post_blame', element('post', $view))) : ''; ?></span></button>
         <?php } ?>
 
-        <?php if ( ! element('post_del', element('post', $view)) && element('is_admin', $view)) { ?>
+        <!-- <?php if ( ! element('post_del', element('post', $view)) && element('is_admin', $view)) { ?>
             <button type="button" class="btn btn-default btn-sm admin-manage-post"><i class="fa fa-cog big-fa"></i> 관리</button>
             <div class="btn-admin-manage-layer admin-manage-post-layer">
             <?php if (element('is_admin', $view) === 'super') { ?>
@@ -306,7 +306,7 @@ if (element('syntax_highlighter', element('board', $view)) OR element('comment_s
                 <?php } ?>
                 <div class="item" onClick="post_action('post_trash', '<?php echo element('post_id', element('post', $view)); ?>', '', '이 글을 휴지통으로 이동하시겠습니까?');"><i class="fa fa-trash"></i> 휴지통으로</div>
             </div>
-        <?php } ?>
+        <?php } ?> -->
     </div>
 
     <?php
@@ -354,14 +354,17 @@ if (element('syntax_highlighter', element('board', $view)) OR element('comment_s
             <?php if (element('modify_url', $view)) { ?>
                 <a href="<?php echo element('modify_url', $view); ?>" class="btn btn-default btn-sm">수정</a>
             <?php } ?>
-            <?php    if (element('delete_url', $view)) { ?>
-                <button type="button" class="btn btn-default btn-sm btn-one-delete" data-one-delete-url="<?php echo element('delete_url', $view); ?>">삭제</button>
+            <?php if (element('modify_url', $view)) { ?>
+                <a href="<?php echo element('modify_url', $view); ?>" class="btn btn-default btn-sm">완료</a>
             <?php } ?>
-                <a href="<?php echo element('list_url', $view); ?>" class="btn btn-default btn-sm">목록</a>
+           <!--  <?php    if (element('delete_url', $view)) { ?>
+                <button type="button" class="btn btn-default btn-sm btn-one-delete" data-one-delete-url="<?php echo element('delete_url', $view); ?>">삭제</button>
+            <?php } ?> -->
+            <!--     <a href="<?php echo element('list_url', $view); ?>" class="btn btn-default btn-sm">목록</a>
             <?php if (element('search_list_url', $view)) { ?>
                     <a href="<?php echo element('search_list_url', $view); ?>" class="btn btn-default btn-sm">검색목록</a>
-            <?php } ?>
-            <?php if (element('reply_url', $view)) { ?>
+            <?php } ?> -->
+            <!-- <?php if (element('reply_url', $view)) { ?>
                 <a href="<?php echo element('reply_url', $view); ?>" class="btn btn-default btn-sm">답변</a>
             <?php } ?>
             <?php if (element('prev_post', $view)) { ?>
@@ -370,12 +373,12 @@ if (element('syntax_highlighter', element('board', $view)) OR element('comment_s
             <?php if (element('next_post', $view)) { ?>
                 <a href="<?php echo element('url', element('next_post', $view)); ?>" class="btn btn-default btn-sm">다음글</a>
             <?php } ?>
-            </div>
-        <?php if (element('write_url', $view)) { ?>
+            </div> -->
+        <!-- <?php if (element('write_url', $view)) { ?>
             <div class="pull-right">
                 <a href="<?php echo element('write_url', $view); ?>" class="btn btn-success btn-sm">글쓰기</a>
             </div>
-        <?php } ?>
+        <?php } ?> -->
     </div>
 </div>
 <?php echo element('footercontent', element('board', $view)); ?>
@@ -390,16 +393,7 @@ $(document).ready(function() {
 </script>
 <?php } ?>
 
-<script type="text/javascript">
-//<![CDATA[
-var client = new ZeroClipboard($('.copy_post_url'));
-client.on('ready', function( readyEvent ) {
-    client.on('aftercopy', function( event ) {
-        alert('게시글 주소가 복사되었습니다. \'Ctrl+V\'를 눌러 붙여넣기 해주세요.');
-    });
-});
-//]]>
-</script>
+<!--  -->
 <?php
 if (element('highlight_keyword', $view)) {
     $this->managelayout->add_js(base_url('assets/js/jquery.highlight.js'));

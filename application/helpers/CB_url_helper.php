@@ -75,6 +75,14 @@ if ( ! function_exists('board_url')) {
     }
 }
 
+if ( ! function_exists('manager_board_url')) {
+    function manager_board_url($key = '',$post_id = '')
+    {
+        $key = trim($key, '/');
+        return site_url(config_item('uri_segment_manager').'/'.config_item('uri_segment_board').'/board_post/lists/' . $key.'/' . $post_id);
+    }
+}
+
 
 /**
  * 게시물 열람 페이지 주소를 return 합니다
@@ -97,6 +105,27 @@ if ( ! function_exists('post_url')) {
     }
 }
 
+/**
+ * 게시물 열람 페이지 주소를 return 합니다
+ */
+if ( ! function_exists('manager_post_url')) {
+    function manager_post_url($key = '', $post_id = '')
+    {
+        $key = trim($key, '/');
+        $post_id = trim($post_id, '/');
+
+        $post_url = '';
+        if (strtoupper(config_item('uri_segment_post_type')) === 'B') {
+            $post_url = site_url(config_item('uri_segment_manager').'/board/board_post/'.$key . '/' . config_item('uri_segment_post') . '/' . $post_id);
+        } elseif (strtoupper(config_item('uri_segment_post_type')) === 'C') {
+            $post_url = site_url(config_item('uri_segment_manager').'/board/board_post/'.config_item('uri_segment_post') . '/' . $key . '/' . $post_id);
+        } else {
+            $post_url = site_url(config_item('uri_segment_manager').'/board/board_post/'.config_item('uri_segment_post') . '/' . $post_id);
+        }
+        return $post_url;
+    }
+}
+
 
 /**
  * 게시물 작성 페이지 주소를 return 합니다
@@ -109,6 +138,13 @@ if ( ! function_exists('write_url')) {
     }
 }
 
+if ( ! function_exists('manager_write_url')) {
+    function manager_write_url($key = '')
+    {
+        $key = trim($key, '/');
+        return site_url(config_item('uri_segment_manager').'/board/board_write/'.config_item('uri_segment_write') . '/' . $key);
+    }
+}
 
 /**
  * 게시물 답변 페이지 주소를 return 합니다
@@ -121,6 +157,13 @@ if ( ! function_exists('reply_url')) {
     }
 }
 
+if ( ! function_exists('manager_reply_url')) {
+    function manager_reply_url($key = '')
+    {
+        $key = trim($key, '/');
+        return site_url(config_item('uri_segment_manager').'/board/board_write/'.config_item('uri_segment_reply') . '/' . $key);
+    }
+}
 
 /**
  * 게시물 수정 페이지 주소를 return 합니다
@@ -133,6 +176,13 @@ if ( ! function_exists('modify_url')) {
     }
 }
 
+if ( ! function_exists('manager_modify_url')) {
+    function manager_modify_url($key = '')
+    {
+        $key = trim($key, '/');
+        return site_url(config_item('uri_segment_manager').'/board/board_write/'.config_item('uri_segment_modify') . '/' . $key);
+    }
+}
 
 /**
  * 게시물 그룹 페이지 주소를 return 합니다

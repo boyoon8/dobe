@@ -2,7 +2,7 @@
 /* CSS Document */
 
 * {margin: 0;padding: 0;}
-a > * {line-height: 0;}
+/*a > * {line-height: 0;}*/
 img {border: medium none;}
 body {font-family: 나눔고딕,NanumGothic,돋움,Dotum,Arial,Helvetica,sans-serif;font-size: 13px; }
 a {color:#000;text-decoration: none;}
@@ -651,3 +651,10 @@ textarea.dhtmleditor {width:100%;height:350px;}
 @media (max-width: 1170px) {
 	.container{width:98%;}
 }
+
+div.gallery-box div.gallery-list-content { 
+          padding:0 2%;
+          white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+          white-space: normal; height: 4.3em; text-align: left; word-wrap: break-word; 
+          display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;
+        }

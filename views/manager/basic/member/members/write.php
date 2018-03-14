@@ -71,12 +71,12 @@
                         </select>
                     </div>
                 </div>
-                <div class="form-group">
+                <!-- <div class="form-group">
                     <label class="col-sm-2 control-label">홈페이지</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" name="mem_homepage" value="<?php echo set_value('mem_homepage', element('mem_homepage', element('data', $view))); ?>" />
                     </div>
-                </div>
+                </div> -->
                 <div class="form-group">
                     <label class="col-sm-2 control-label">생일</label>
                     <div class="col-sm-10">
@@ -121,7 +121,7 @@
                         <input type="hidden" name="mem_address4" value="<?php echo set_value('mem_address4', element('mem_address4', element('data', $view))); ?>" />
                     </div>
                 </div>
-                <div class="form-group">
+                <!-- <div class="form-group">
                     <label class="col-sm-2 control-label">프로필사진</label>
                     <div class="col-sm-10">
                         <?php
@@ -137,8 +137,8 @@
                         <input type="file" name="mem_photo" id="mem_photo" />
                         <p class="help-block">가로길이 : <?php echo $this->cbconfig->item('member_photo_width'); ?>px, 세로길이 : <?php echo $this->cbconfig->item('member_photo_height'); ?>px 에 최적화되어있습니다, gif, jpg, png 파일 업로드가 가능합니다</p>
                     </div>
-                </div>
-                <div class="form-group">
+                </div> -->
+                <!-- <div class="form-group">
                     <label class="col-sm-2 control-label">회원아이콘</label>
                     <div class="col-sm-10">
                         <?php
@@ -154,8 +154,12 @@
                         <input type="file" name="mem_icon" id="mem_icon" />
                         <p class="help-block">가로길이 : <?php echo $this->cbconfig->item('member_icon_width'); ?>px, 세로길이 : <?php echo $this->cbconfig->item('member_icon_height'); ?>px 에 최적화되어있습니다, gif, jpg, png 파일 업로드가 가능합니다</p>
                     </div>
-                </div>
-                <div class="form-group">
+                </div> -->
+                <input type="hidden" name="mem_receive_email" id="mem_receive_email" value="1">
+                <input type="hidden" name="mem_use_note" id="mem_use_note" value="1">
+                <input type="hidden" name="mem_receive_sms" id="mem_receive_sms" value="1">
+                <input type="hidden" name="mem_open_profile" id="mem_open_profile" value="1">
+                <!--<div class="form-group">
                     <label class="col-sm-2 control-label">메일받기</label>
                     <div class="col-sm-10">
                         <label for="mem_receive_email" class="checkbox-inline">
@@ -163,7 +167,7 @@
                         </label>
                     </div>
                 </div>
-                <div class="form-group">
+                 <div class="form-group">
                     <label class="col-sm-2 control-label">쪽지사용</label>
                     <div class="col-sm-10">
                         <label for="mem_use_note" class="checkbox-inline">
@@ -186,7 +190,7 @@
                             <input type="checkbox" name="mem_open_profile" id="mem_open_profile" value="1" <?php echo set_checkbox('mem_open_profile', '1', (element('mem_open_profile', element('data', $view)) ? true : false)); ?> /> 공개합니다
                         </label>
                     </div>
-                </div>
+                </div> -->
                 <div class="form-group">
                     <label class="col-sm-2 control-label">승인상태</label>
                     <div class="col-sm-10 form-inline">

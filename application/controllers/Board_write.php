@@ -308,7 +308,7 @@ class Board_write extends CB_Controller
             array(
                 'field' => 'post_content',
                 'label' => '내용',
-                'rules' => 'trim|required',
+                'rules' => 'trim',
             ),
         );
         if ($form && is_array($form)) {
@@ -1654,7 +1654,7 @@ class Board_write extends CB_Controller
             array(
                 'field' => 'post_content',
                 'label' => '내용',
-                'rules' => 'trim|required',
+                'rules' => 'trim',
             ),
         );
 

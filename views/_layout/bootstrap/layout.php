@@ -36,6 +36,7 @@ var view_skin_path = "<?php echo element('view_skin_path', $layout); ?>";
 var is_member = "<?php echo $this->member->is_member() ? '1' : ''; ?>";
 var is_admin = "<?php echo $this->member->is_admin(); ?>";
 var cb_admin_url = <?php echo $this->member->is_admin() === 'super' ? 'cb_url + "/' . config_item('uri_segment_admin') . '"' : '""'; ?>;
+var cb_manager_url = <?php echo $this->member->is_admin() === 'super' ? 'cb_url + "/' . config_item('uri_segment_manager') . '"' : '""'; ?>;
 var cb_board = "<?php echo isset($view) ? element('board_key', $view) : ''; ?>";
 var cb_board_url = <?php echo ( isset($view) && element('board_key', $view)) ? 'cb_url + "/' . config_item('uri_segment_board') . '/' . element('board_key', $view) . '"' : '""'; ?>;
 var cb_device_type = "<?php echo $this->cbconfig->get_device_type() === 'mobile' ? 'mobile' : 'desktop' ?>";
@@ -114,7 +115,7 @@ var cookie_prefix = "<?php echo config_item('cookie_prefix'); ?>";
             <div class="row">
 
                 <?php if (element('use_sidebar', $layout)) {?>
-                    <div class="col-md-10 col-sm-10 col-xs-12 mb20 pull-right">
+                    <div class="col-md-11 col-sm-11 col-xs-12 mb20 pull-right">
                 <?php } ?>
 
                 <!-- 본문 시작 -->
@@ -123,7 +124,7 @@ var cookie_prefix = "<?php echo config_item('cookie_prefix'); ?>";
 
                 <?php if (element('use_sidebar', $layout)) {?>
                     </div>
-                    <div class="col-md-2 col-sm-2 col-xs-12 pull-right">
+                    <div class="col-md-1 col-sm-1 col-xs-12 pull-right">
                         <div class="sidebar">
                             <!-- 사이드바 시작 -->
                             <?php $this->load->view(element('layout_skin_path', $layout) . '/sidebar'); ?>

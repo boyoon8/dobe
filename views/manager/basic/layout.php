@@ -21,6 +21,7 @@
 <?php echo $this->managelayout->display_css(); ?>
 <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+
 <script type="text/javascript">
 // 자바스크립트에서 사용하는 전역변수 선언
 var cb_url = "<?php echo trim(site_url(), '/'); ?>";
@@ -33,6 +34,7 @@ var view_skin_path = "<?php echo element('view_skin_path', $layout); ?>";
 var is_member = "<?php echo $this->member->is_member() ? '1' : ''; ?>";
 var is_admin = "<?php echo $this->member->is_admin(); ?>";
 var cb_admin_url = <?php echo $this->member->is_admin() === 'super' ? 'cb_url + "/' . config_item('uri_segment_admin') . '"' : '""'; ?>;
+var cb_manager_url = <?php echo $this->member->is_admin() === 'super' ? 'cb_url + "/' . config_item('uri_segment_manager') . '"' : '""'; ?>;
 var cb_board = "<?php echo isset($view) ? element('board_key', $view) : ''; ?>";
 var cb_board_url = <?php echo ( isset($view) && element('board_key', $view)) ? 'cb_url + "/' . config_item('uri_segment_board') . '/' . element('board_key', $view) . '"' : '""'; ?>;
 var cb_device_type = "<?php echo $this->cbconfig->get_device_type() === 'mobile' ? 'mobile' : 'desktop' ?>";
@@ -64,13 +66,32 @@ var cookie_prefix = "<?php echo config_item('cookie_prefix'); ?>";
             <ul class="menu pull-right">
                 <?php
                 $menuhtml = '';
+                $menu_title='';
+                $menu_dir='';
+                
                 if (element('menu', $layout)) {
                     $menu = element('menu', $layout);
                     if (element(0, $menu)) {
+
                         foreach (element(0, $menu) as $mkey => $mval) {
+                            
                             if (element(element('men_id', $mval), $menu)) {
                                 $mlink = element('men_link', $mval) ? element('men_link', $mval) : 'javascript:;';
-                                $menuhtml .= '<li class="dropdown">
+
+                                $active='';                                
+                                $menu_dir = explode('/', str_replace('/'.config_item('uri_segment_manager') . '/', '', element('men_link', $mval)));
+
+                                if($menu_dir[0]==='board'){
+                                    if(element('menu_dir1', $layout) === $menu_dir[0] && element('menu_dir2', $layout,'') === element(1,$menu_dir,'') && element('menu_dir3', $layout,'') === element(2,$menu_dir,'') && element('menu_dir4', $layout,'') === element(3,$menu_dir,'') ){ 
+                                        $active='active';
+                                    }
+                                } else {
+                                    if(element('menu_dir1', $layout) === $menu_dir[0] && element('menu_dir2', $layout,'') === element(1,$menu_dir,'') ){ 
+                                        $active='active';
+                                    }
+                                }
+                                
+                                $menuhtml .= '<li class="dropdown '.$active.'">
                                 <a href="' . $mlink . '" ' . element('men_custom', $mval);
                                 if (element('men_target', $mval)) {
                                     $menuhtml .= ' target="' . element('men_target', $mval) . '"';
@@ -80,6 +101,12 @@ var cookie_prefix = "<?php echo config_item('cookie_prefix'); ?>";
 
                                 foreach (element(element('men_id', $mval), $menu) as $skey => $sval) {
                                     $slink = element('men_link', $sval) ? element('men_link', $sval) : 'javascript:;';
+                                    
+                                    if('/'.uri_string()===element('men_link', $sval)){ 
+                                        
+                                        $menu_title=html_escape(element('men_name', $sval));
+                                    }
+
                                     $menuhtml .= '<li><a href="' . $slink . '" ' . element('men_custom', $sval);
                                     if (element('men_target', $sval)) {
                                         $menuhtml .= ' target="' . element('men_target', $sval) . '"';
@@ -90,7 +117,17 @@ var cookie_prefix = "<?php echo config_item('cookie_prefix'); ?>";
 
                             } else {
                                 $mlink = element('men_link', $mval) ? element('men_link', $mval) : 'javascript:;';
-                                $menuhtml .= '<li><a href="' . $mlink . '" ' . element('men_custom', $mval);
+
+                                $menu_dir = explode('/', str_replace('/'.config_item('uri_segment_manager') . '/', '', element('men_link', $mval)));
+
+                                $active='';                                
+                                if(element('menu_dir1', $layout) === $menu_dir[0] && element('menu_dir2', $layout,'') === element(1,$menu_dir,'') && element('menu_dir3', $layout,'') === element(2,$menu_dir,'') && element('menu_dir4', $layout,'') === element(3,$menu_dir,'') ){ 
+                                 
+                                    $active='active';
+                                    $menu_title=html_escape(element('men_name', $mval));
+                                }   
+
+                                $menuhtml .= '<li class="'.$active.'"><a href="' . $mlink . '" ' . element('men_custom', $mval);
                                 if (element('men_target', $mval)) {
                                     $menuhtml .= ' target="' . element('men_target', $mval) . '"';
                                 }
@@ -124,22 +161,13 @@ var cookie_prefix = "<?php echo config_item('cookie_prefix'); ?>";
     <!-- main start -->
     <div class="main">
         <div class="container">
-            <?php if (element('use_sidebar', $layout)) {?>
-                <div class="left">
-            <?php } ?>
+           <?php echo $menu_title ? '<h3>' . $menu_title . '</h3>' : ''; ?>
 
             <!-- 본문 시작 -->
             <?php if (isset($yield))echo $yield; ?>
             <!-- 본문 끝 -->
 
-            <?php if (element('use_sidebar', $layout)) {?>
-
-                </div>
-                <div class="sidebar">
-                    <?php $this->load->view(element('layout_skin_path', $layout) . '/sidebar'); ?>
-                </div>
-
-            <?php } ?>
+           
 
         </div>
     </div>

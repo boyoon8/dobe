@@ -46,9 +46,11 @@ class Manager_menu_model extends CB_Model
                 ? array('men_mobile' => 1) : array('men_desktop' => 1);
 
             $return = $this->get('', '', $where, '', 0, 'men_order', 'asc');
-
+            
             if ($return) {
                 foreach ($return as $key => $value) {
+
+                    
                     $result[$value['men_parent']][$value['men_id']] = $value;
                 }
                 $this->cache->save($cachename, $result);

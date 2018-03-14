@@ -120,7 +120,7 @@
                                 <?php echo element('mem_receive_sms', $result) ? '<i class="fa fa-check-square-o"></i>' : '<i class="fa fa-square-o"></i>';; ?>
                             </td>
                             <td><?php echo element('mem_denied', $result) ? '<span class="label label-danger">차단</span>' : '승인'; ?></td>
-                            <td><a href="<?php echo admin_url($this->pagedir); ?>/write/<?php echo element(element('primary_key', $view), $result); ?>?<?php echo $this->input->server('QUERY_STRING', null, ''); ?>" class="btn btn-outline btn-default btn-xs">수정</a></td>
+                            <td><a href="<?php echo manager_url($this->pagedir); ?>/write/<?php echo element(element('primary_key', $view), $result); ?>?<?php echo $this->input->server('QUERY_STRING', null, ''); ?>" class="btn btn-outline btn-default btn-xs">수정</a></td>
                             <td><input type="checkbox" name="chk[]" class="list-chkbox" value="<?php echo element(element('primary_key', $view), $result); ?>" /></td>
                         </tr>
                     <?php
@@ -166,13 +166,13 @@
 <script type="text/javascript">
 //<![CDATA[
 function social_open(stype, mem_id) {
-    var pop_url = cb_admin_url + '/member/members/socialinfo/' + stype + '/' + mem_id;
+    var pop_url = cb_manager_url + '/member/members/socialinfo/' + stype + '/' + mem_id;
     window.open(pop_url, 'win_socialinfo', 'left=100,top=100,width=730,height=500,scrollbars=1');
     return false;
 }
 
 $(document).on('click', '#export_to_excel', function(){
-    exporturl = '<?php echo admin_url($this->pagedir . '/excel' . '?' . $this->input->server('QUERY_STRING', null, '')); ?>';
+    exporturl = '<?php echo manager_url($this->pagedir . '/excel' . '?' . $this->input->server('QUERY_STRING', null, '')); ?>';
     document.location.href = exporturl;
 })
 

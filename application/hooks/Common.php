@@ -157,7 +157,7 @@ class _Common
 
         // 일반 페이지
         if (!$CI->member->is_member()
-            && ($CI->uri->segment(1) === 'main' || $CI->uri->segment(1) === 'board' || $CI->uri->segment(1) === 'group' || $CI->uri->segment(1) === 'search' || empty($CI->uri->segment(1)))) {
+            && ($CI->uri->segment(1) === 'main' || $CI->uri->segment(1) === 'manager' || $CI->uri->segment(1) === 'board' || $CI->uri->segment(1) === 'group' || $CI->uri->segment(1) === 'search' || empty($CI->uri->segment(1)))) {
             redirect('login?url=' . urlencode(current_full_url()));
         }
 

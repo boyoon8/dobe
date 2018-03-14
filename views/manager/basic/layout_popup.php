@@ -37,6 +37,7 @@ var admin_skin_url = "<?php echo element('layout_skin_url', $layout); ?>";
 var is_member = "<?php echo $this->member->is_member() ? '1' : ''; ?>";
 var is_admin = "<?php echo $this->member->is_admin(); ?>";
 var cb_admin_url = <?php echo $this->member->is_admin() === 'super' ? 'cb_url + "/' . config_item('uri_segment_admin') . '"' : '""'; ?>;
+var cb_manager_url = <?php echo $this->member->is_admin() === 'super' ? 'cb_url + "/' . config_item('uri_segment_manager') . '"' : '""'; ?>;
 var cb_board = "";
 var cb_csrf_hash = "<?php echo $this->security->get_csrf_hash(); ?>";
 var cookie_prefix = "<?php echo config_item('cookie_prefix'); ?>";

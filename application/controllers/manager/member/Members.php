@@ -156,7 +156,7 @@ class Members extends CB_Controller
         /**
          * 페이지네이션을 생성합니다
          */
-        $config['base_url'] = admin_url($this->pagedir) . '?' . $param->replace('page');
+        $config['base_url'] = manager_url($this->pagedir) . '?' . $param->replace('page');
         $config['total_rows'] = $result['total_rows'];
         $config['per_page'] = $per_page;
         $this->pagination->initialize($config);
@@ -169,9 +169,9 @@ class Members extends CB_Controller
         $search_option = array('mem_userid' => '회원아이디', 'mem_email' => '이메일', 'mem_username' => '회원명', 'mem_nickname' => '닉네임', 'mem_level' => '회원레벨', 'mem_homepage' => '홈페이지', 'mem_register_datetime' => '회원가입날짜', 'mem_register_ip' => '회원가입IP', 'mem_lastlogin_datetime' => '최종로그인날짜', 'mem_lastlogin_ip' => '최종로그인IP', 'mem_adminmemo' => '관리자메모');
         $view['view']['skeyword'] = ($sfield && array_key_exists($sfield, $search_option)) ? $skeyword : '';
         $view['view']['search_option'] = search_option($search_option, $sfield);
-        $view['view']['listall_url'] = admin_url($this->pagedir);
-        $view['view']['write_url'] = admin_url($this->pagedir . '/write');
-        $view['view']['list_delete_url'] = admin_url($this->pagedir . '/listdelete/?' . $param->output());
+        $view['view']['listall_url'] = manager_url($this->pagedir);
+        $view['view']['write_url'] = manager_url($this->pagedir . '/write');
+        $view['view']['list_delete_url'] = manager_url($this->pagedir . '/listdelete/?' . $param->output());
 
         // 이벤트가 존재하면 실행합니다
         $view['view']['event']['before_layout'] = Events::trigger('before_layout', $eventname);
@@ -180,7 +180,7 @@ class Members extends CB_Controller
          * 어드민 레이아웃을 정의합니다
          */
         $layoutconfig = array('layout' => 'layout', 'skin' => 'index');
-        $view['layout'] = $this->managelayout->admin($layoutconfig, $this->cbconfig->get_device_view_type());
+        $view['layout'] = $this->managelayout->manager_front($layoutconfig, $this->cbconfig->get_device_view_type());
         $this->data = $view;
         $this->layout = element('layout_skin_file', element('layout', $view));
         $this->view = element('view_skin_file', element('layout', $view));
@@ -591,7 +591,7 @@ class Members extends CB_Controller
              * 어드민 레이아웃을 정의합니다
              */
             $layoutconfig = array('layout' => 'layout', 'skin' => 'write');
-            $view['layout'] = $this->managelayout->admin($layoutconfig, $this->cbconfig->get_device_view_type());
+            $view['layout'] = $this->managelayout->manager_front($layoutconfig, $this->cbconfig->get_device_view_type());
             $this->data = $view;
             $this->layout = element('layout_skin_file', element('layout', $view));
             $this->view = element('view_skin_file', element('layout', $view));
@@ -826,7 +826,7 @@ class Members extends CB_Controller
              * 게시물의 신규입력 또는 수정작업이 끝난 후 목록 페이지로 이동합니다
              */
             $param =& $this->querystring;
-            $redirecturl = admin_url($this->pagedir . '?' . $param->output());
+            $redirecturl = manager_url($this->pagedir . '?' . $param->output());
 
             redirect($redirecturl);
         }
@@ -1122,7 +1122,7 @@ class Members extends CB_Controller
          * 어드민 레이아웃을 정의합니다
          */
         $layoutconfig = array('layout' => 'layout_popup', 'skin' => 'socialinfo');
-        $view['layout'] = $this->managelayout->admin($layoutconfig, $this->cbconfig->get_device_view_type());
+        $view['layout'] = $this->managelayout->manager_front($layoutconfig, $this->cbconfig->get_device_view_type());
         $this->data = $view;
         $this->layout = element('layout_skin_file', element('layout', $view));
         $this->view = element('view_skin_file', element('layout', $view));
@@ -1260,7 +1260,7 @@ class Members extends CB_Controller
             '정상적으로 삭제되었습니다'
         );
         $param =& $this->querystring;
-        $redirecturl = admin_url($this->pagedir . '?' . $param->output());
+        $redirecturl = manager_url($this->pagedir . '?' . $param->output());
 
         redirect($redirecturl);
     }

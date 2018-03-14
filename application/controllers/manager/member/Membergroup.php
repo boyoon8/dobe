@@ -139,7 +139,7 @@ class Membergroup extends CB_Controller
          * 어드민 레이아웃을 정의합니다
          */
         $layoutconfig = array('layout' => 'layout', 'skin' => 'index');
-        $view['layout'] = $this->managelayout->admin($layoutconfig, $this->cbconfig->get_device_view_type());
+        $view['layout'] = $this->managelayout->manager_front($layoutconfig, $this->cbconfig->get_device_view_type());
         $this->data = $view;
         $this->layout = element('layout_skin_file', element('layout', $view));
         $this->view = element('view_skin_file', element('layout', $view));

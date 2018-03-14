@@ -125,7 +125,7 @@ class Group extends CB_Controller
         $layoutconfig = array(
             'path' => 'group',
             'layout' => 'layout',
-            'skin' => 'group',
+            'skin' => 'group_gallerylist',
             'layout_dir' => $layout_dir,
             'mobile_layout_dir' => $mobile_layout_dir,
             'use_sidebar' => $use_sidebar,

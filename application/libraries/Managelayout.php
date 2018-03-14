@@ -245,12 +245,14 @@ class Managelayout extends CI_Controller
         $CI->load->model('Manager_menu_model');
         $data['manager_page_menu'] = $CI->Manager_menu_model->get_all_menu($device_view_type);
 
-        
-        
-
+        $menu_dir='';
         if (uri_string() !== config_item('uri_segment_manager')) {
-            list($data['menu_dir1'], $data['menu_dir2']) = explode('/', str_replace(config_item('uri_segment_manager') . '/', '', uri_string()));
-            $data['menu_title'] = element(0, element(element('menu_dir2', $data), element('menu', element(element('menu_dir1', $data), element('manager_page_menu', $data)))));
+            $menu_dir = explode('/', str_replace(config_item('uri_segment_manager') . '/', '', uri_string()));
+            if($menu_dir)
+            foreach($menu_dir as $key => $value){
+                $data['menu_dir'.($key+1)] = $value;
+            }
+            
         } else {
             $data['menu_dir1'] = '';
             $data['menu_dir2'] = '';

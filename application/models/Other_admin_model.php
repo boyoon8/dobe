@@ -75,38 +75,86 @@ class Other_admin_model extends CB_Model
     public function update_group($data = '')
     {
         $order = 1;
-        if (element('ota_id', $data) && is_array(element('ota_id', $data))) {
-            foreach (element('ota_id', $data) as $key => $value) {
-                if ( ! element($key, element('ota_title', $data))) {
-                    continue;
+
+        if($data['ota_type']==='other_sub_1'){
+            if (element('ota_id', $data) && is_array(element('ota_id', $data))) {
+                foreach (element('ota_id', $data) as $key => $value) {
+                    if ( ! element($key, element('ota_title', $data))) {
+                        continue;
+                    }
+                    if ($value) {
+                        
+                        $updatedata = array(
+                            'ota_title' => $data['ota_title'][$key],
+                            'ota_value' => $data['ota_value'][$key],
+                            'ota_datetime' => cdate('Y-m-d H:i:s'),
+                            'ota_order' => $order,
+                            'ota_description' => $data['ota_description'][$key],
+                            'ota_type' => $data['ota_type'],
+                        );
+                        $this->update($value, $updatedata);
+                    } else {
+                        
+                        $insertdata = array(
+                            'ota_title' => $data['ota_title'][$key],
+                            'ota_value' => $data['ota_value'][$key],
+                            'ota_datetime' => cdate('Y-m-d H:i:s'),
+                            'ota_order' => $order,
+                            'ota_description' => $data['ota_description'][$key],
+                            'ota_type' => $data['ota_type'],
+                        );
+                        $this->insert($insertdata);
+                    }
+                $order++;
                 }
-                if ($value) {
-                    $is_default = isset($data['ota_is_default'][$key]) && $data['ota_is_default'][$key] ? 1 : 0;
-                    $updatedata = array(
-                        'ota_title' => $data['ota_title'][$key],
-                        'ota_is_default' => $is_default,
-                        'ota_datetime' => cdate('Y-m-d H:i:s'),
-                        'ota_order' => $order,
-                        'ota_description' => $data['ota_description'][$key],
-                    );
-                    $this->update($value, $updatedata);
-                } else {
-                    $is_default = isset($data['ota_is_default'][$key]) && $data['ota_is_default'][$key] ? 1 : 0;
-                    $insertdata = array(
-                        'ota_title' => $data['ota_title'][$key],
-                        'ota_is_default' => $is_default,
-                        'ota_datetime' => cdate('Y-m-d H:i:s'),
-                        'ota_order' => $order,
-                        'ota_description' => $data['ota_description'][$key],
-                    );
-                    $this->insert($insertdata);
-                }
-            $order++;
             }
+            $deletewhere = array(
+                'ota_datetime !=' => cdate('Y-m-d H:i:s'),
+                'ota_type' => $data['ota_type'],
+                'ota_value' => $data['ota_value'][$key],
+            );
+        } else {
+            
+            
+            if (element('ota_id', $data) && is_array(element('ota_id', $data))) {
+
+                foreach (element('ota_id', $data) as $key => $value) {
+                    if ( ! element($key, element('ota_title', $data))) {
+                        continue;
+                    }
+                    if ($value) {
+                        
+                        $updatedata = array(
+                            'ota_title' => $data['ota_title'][$key],
+                            'ota_value' => $data['ota_value'],
+                            'ota_datetime' => cdate('Y-m-d H:i:s'),
+                            'ota_order' => $order,
+                            'ota_description' => $data['ota_description'][$key],
+                            'ota_type' => $data['ota_type'],
+                        );
+                        $this->update($value, $updatedata);
+                    } else {
+                        
+                        $insertdata = array(
+                            'ota_title' => $data['ota_title'][$key],
+                            'ota_value' => $data['ota_value'],
+                            'ota_datetime' => cdate('Y-m-d H:i:s'),
+                            'ota_order' => $order,
+                            'ota_description' => $data['ota_description'][$key],
+                            'ota_type' => $data['ota_type'],
+                        );
+                        $this->insert($insertdata);
+                    }
+                $order++;
+                }
+            }
+            $deletewhere = array(
+                'ota_datetime !=' => cdate('Y-m-d H:i:s'),
+                'ota_type' => $data['ota_type'],
+                'ota_value' => $data['ota_value'],
+            );
         }
-        $deletewhere = array(
-            'ota_datetime !=' => cdate('Y-m-d H:i:s'),
-        );
+
         $this->delete_where($deletewhere);
         $this->cache->delete($this->cache_name);
     }

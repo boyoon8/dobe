@@ -39,7 +39,7 @@ class Board_post extends CB_Controller
     /**
      * 게시판 목록입니다.
      */
-    public function lists($brd_key = '')
+    public function lists($brd_key = '',$post_id = '')
     {
         // 이벤트 라이브러리를 로딩합니다
         $eventname = 'event_board_post_lists';
@@ -71,6 +71,7 @@ class Board_post extends CB_Controller
         // 이벤트가 존재하면 실행합니다
         $view['view']['event']['before_layout'] = Events::trigger('before_layout', $eventname);
 
+        if(!empty($post_id)) $view['view']['view_post'] = 'view_post(\'detail_view\',\''.$post_id.'\',\'\',\'\');';
         /**
          * 레이아웃을 정의합니다
          */
@@ -710,7 +711,7 @@ class Board_post extends CB_Controller
         $view['view']['reply_url'] = ($can_reply === true && ! element('post_del', $post))
             ? reply_url(element('post_id', $post)) : '';
         $view['view']['modify_url'] = ($can_modify && ! element('post_del', $post))
-            ? modify_url(element('post_id', $post) . '?' . $param->output()) : '';
+            ? 'javascript:modify_post(\'detail_view\',\''.element('post_id', $post).'\',\'\',\'\');'  : '';
         $view['view']['delete_url'] = ($can_delete && ! element('post_del', $post))
             ? site_url('postact/delete/' . element('post_id', $post) . '?' . $param->output()) : '';
 
@@ -904,6 +905,7 @@ class Board_post extends CB_Controller
             }
 
             $layout_dir = element('board_layout', $board) ? element('board_layout', $board) : $this->cbconfig->item('layout_board');
+            
             $mobile_layout_dir = element('board_mobile_layout', $board) ? element('board_mobile_layout', $board) : $this->cbconfig->item('mobile_layout_board');
             $use_sidebar = element('board_sidebar', $board) ? element('board_sidebar', $board) : $this->cbconfig->item('sidebar_board');
             $use_mobile_sidebar = element('board_mobile_sidebar', $board) ? element('board_mobile_sidebar', $board) : $this->cbconfig->item('mobile_sidebar_board');
